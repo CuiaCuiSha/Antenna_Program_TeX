@@ -89,9 +89,6 @@ u=\frac{\pi d}{\lambda}\cos\theta
 \end{figure}
 
 
-\subsubsection{选做:与经验公式比较}
-
-
 \subsubsection{选做:考虑单元因子的边射阵方向图}
 \begin{figure}[!ht]
 	\begin{minipage}[t]{0.35\linewidth}
@@ -110,7 +107,112 @@ u=\frac{\pi d}{\lambda}\cos\theta
 
 \subsection{程序}
 \noindent \textbf{主程序}
+\begin{lstlisting}[language={matlab},keywordstyle=\color{blue!70},commentstyle=\color{red!50!green!50!blue!50},frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]clear
+close all
+
+a1=[1 1 1 1 1 1 1 1 1 1];
+a2=[126 84 36 9 1 0 0 0 0 0];
+a3=[2.798 2.496 1.974 1.357 1 0 0 0 0 0];
+theta=linspace(1,2*pi,5000);
+
+d=0.25;
+[AF1,HPBW1]=Fun_TenElement_array(a1,d);
+[AF2,HPBW2]=Fun_TenElement_array(a2,d);
+[AF3,HPBW3]=Fun_TenElement_array(a3,d);
+
+polar(theta, AF1/max(AF1));hold on 
+polar(theta, AF2/max(AF2));hold on 
+polar(theta, AF3/max(AF3));hold on 
+legend('Uniform','Binomial','Dolph')
+[HPBW1,HPBW2,HPBW3]
+figure
+x=1:5000;
+plot(x,AF1/max(AF1));hold on
+plot(x,AF2/max(AF2));hold on
+plot(x,AF3/max(AF3));hold on
+legend('Uniform','Binomial','Dolph')
+%Solve 3dB BandWidth
+
+
+figure 
+Fun_TenElement_array_with_EF(a1,d)
+hold on 
+Fun_TenElement_array_with_EF(a2,d)
+hold on 
+Fun_TenElement_array_with_EF(a3,d)
+hold on 
+legend('Uniform','Binomial','Dolph')
+%legend('1','2','che')
+
+
+
+
+
+\end{lstlisting}
+
+\noindent \textbf{子函数不考虑EF}
 \begin{lstlisting}[language={matlab},keywordstyle=\color{blue!70},commentstyle=\color{red!50!green!50!blue!50},frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}] 
+function [AF,BeamWidth_3dB]=Fun_TenElement_array(a,d)
+%Output_1 is AF array,stepnum is 5000,form 0to2pi
+%Outpuit_2 is BeamWidth_3dB,
+
+n=length(a);
+flag=(mod(n,2)==1); % 1 is odd, 0 is even
+AF=0;
+theta=linspace(1,2*pi,5000);
+u=pi*d*cos(theta);
+if flag==0
+
+for i=1:n/2
+AF=AF+a(i)*cos((2*i-1)*u);
+end
+
+else %odd
+
+for i=1:fix(n/2)
+AF=AF+cos(2*(i-1)*u);
+end
+
+end
+AF=AF.^2;   %POWER
+
+%solve 3dB BandWidth
+AF_1=AF/max(AF);
+dB3=find(AF_1(1:2000)>=0.5);
+BeamWidth_3dB=(max(dB3)-min(dB3))/5000*360;
+
+end
+\end{lstlisting}
+
+\noindent \textbf{子函数考虑EF}
+\begin{lstlisting}[language={matlab},keywordstyle=\color{blue!70},commentstyle=\color{red!50!green!50!blue!50},frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+function Fun_TenElement_array_with_EF(a,d)
+
+n=length(a);
+flag=(mod(n,2)==1); % 1 is odd, 0 is even
+AF=0;
+theta=linspace(1,2*pi,5000);
 
 
+u=pi*d*cos(theta);
+if flag==0
+
+for i=1:n/2
+AF=AF+a(i)*cos((2*i-1)*u);
+end
+
+else %odd
+
+for i=1:fix(n/2)
+AF=AF+cos(2*(i-1)*u);
+end
+
+end
+
+AF=AF.^2;
+TF=cos(theta).^2.*AF;
+polar(theta, TF/max(TF));
+hold on 
+
+end
 \end{lstlisting}

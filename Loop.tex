@@ -31,17 +31,23 @@ P=\dfrac{E^2}{\eta} \simeq \left[J_1\left( ka\sin\theta\right)\right]^2
 \subsubsection{方向图}
 根据图\ref{fig:loopall}分析,有几个特殊的长度.
 
-有一个长度书中没有提到,$a\simeq0.3\lambda$.一阶贝塞尔函数的第一个极大值约为3.9, 对应$ka\sin\theta=3.9$在$\theta=90\circ$时,a约为0.3,此时$90^\circ$和$270^\circ$(平行于环的平面)方向第一次不再为主瓣方向. 
+有一个长度书中没有提到,$a\simeq0.3\lambda$.一阶贝塞尔函数的第一个极大值约为3.9, 对应$ka\sin\theta=3.9$在$\theta=90^\circ$时,a约为0.3,此时$90^\circ$和$270^\circ$(平行于环的平面)方向第一次不再为主瓣方向. 
 %在$a\le\lambda/6.28$时,可以认为方向图同Small Cirular Loop.在$a>\lambda/6.28$,不再可以认为是电小环. 必须考虑电流的空间分布带来的影响.
 
 此时随着半径的增大,主瓣不再位于$90^\circ$和$270^\circ$(平行于环的平面)方向,而是向$0^\circ $和$180^\circ $移动. 当$a=0.61\lambda$时,$90^\circ$和$270^\circ$方向,恰好不再有辐射功率. 随着半径的继续增大,旁瓣增多的同时,其方向性也越来越好.
 
 有一个特殊的尺寸当周长恰好为$\lambda$,即$a=\lambda/2\pi$,对于电流分布不均匀的环天线而言,其主辐射方向为$0^\circ $和$180^\circ $.
-%这里用CST做验证
+这里用CST做验证,如图\ref{fig:loopcst}.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=12cm]{loop_all.eps}
 	\caption{LoopPatterns} \label{fig:loopall}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=12cm]{loop_cst.png}
+	\caption{Pattern with CST} \label{fig:loopcst}
 \end{figure}
 
 \subsection{程序}
