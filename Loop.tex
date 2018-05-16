@@ -36,8 +36,11 @@ P=\dfrac{E^2}{\eta} \simeq \left[J_1\left( ka\sin\theta\right)\right]^2
 
 此时随着半径的增大,主瓣不再位于$90^\circ$和$270^\circ$(平行于环的平面)方向,而是向$0^\circ $和$180^\circ $移动. 当$a=0.61\lambda$时,$90^\circ$和$270^\circ$方向,恰好不再有辐射功率. 随着半径的继续增大,旁瓣增多的同时,其方向性也越来越好.
 
-有一个特殊的尺寸当周长恰好为$\lambda$,即$a=\lambda/2\pi$,对于电流分布不均匀的环天线而言,其主辐射方向为$0^\circ $和$180^\circ $.
-这里用CST做验证,如图\ref{fig:loopcst}.
+有一个特殊的尺寸当周长恰好为$\lambda$,即$a=\lambda/2\pi$,对于电流分布不均匀的环天线而言,其主辐射方向为$0^\circ $和$180^\circ $(垂直于环面).
+这里用CST做验证,如图\ref{fig:loopcst}所示.
+
+
+由此可见, 在电小环的情况下, 可以不用考虑环上的电流分布, 但是随着环的尺寸的增大, 电流分布的影响逐渐增大,在环周长为波长量级的条件下,这是不容忽视的!
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=12cm]{loop_all.eps}
